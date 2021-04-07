@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @AllArgsConstructor
@@ -41,6 +42,11 @@ public class InvoiceService {
 
     public List<InvoiceVO> getInvoice() {
         return invoiceMapper.toInvoiceVO(invoiceRepository.findAll());
+    }
+
+    public InvoiceVO getInvoiceByIndex(Long id) {
+        InvoiceEntity invoiceEntity = invoiceFinderWithExcetion(id);
+        return invoiceMapper.toInvoiceVO(invoiceEntity);
     }
 
     public InvoiceVO createInvoice(LinkInvoiceVO linkInvoiceVO) {
@@ -67,6 +73,36 @@ public class InvoiceService {
         invoiceVO.setItens(invoiceItensMapper.toInvoiceItensVO(invoiceItensEntities));
 
         return invoiceVO;
+    }
+
+    public void changeInvoice(LinkInvoiceVO linkInvoiceVO, Long id) {
+        ClientEntity clientEntity = clientFinderWithException(linkInvoiceVO);
+        InvoiceEntity changeInvoice = invoiceFinderWithExcetion(id);
+
+        List<ProductEntity> productEntity = productFinderWithException(linkInvoiceVO.getIdProduct());
+        BigDecimal invoiceValue = BigDecimal.ZERO;
+
+        invoiceItensRepository.deleteAll(invoiceItensRepository.findByInvoiceId(id));
+        for (ProductEntity product : productEntity) {
+
+            InvoiceItensEntity invoiceItensEntity = new InvoiceItensEntity();
+            invoiceItensEntity.setProduct(product);
+            invoiceItensEntity.setInvoice(changeInvoice);
+            invoiceItensRepository.save(invoiceItensEntity);
+            if(!Objects.isNull(product.getValue())){
+                invoiceValue = invoiceValue.add(product.getValue());
+            }
+        }
+
+        changeInvoice.setClient(clientEntity);
+        changeInvoice.setValue(invoiceValue);
+        invoiceRepository.save(changeInvoice);
+    }
+
+    public void deleteInvoiceByIndex(Long id) {
+        invoiceItensRepository.deleteAll(invoiceItensRepository.findByInvoiceId(id));
+        Optional<InvoiceEntity> invoiceEntity = invoiceRepository.findById(id);
+        invoiceEntity.ifPresent(invoiceRepository::delete);
     }
 
     private InvoiceEntity invoiceFinderWithExcetion(Long id) {

@@ -41,6 +41,6 @@ public class InvoiceEntity {
 
     private BigDecimal value;
 
-    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
     private List<InvoiceItensEntity> itens = new ArrayList<>();
 }
