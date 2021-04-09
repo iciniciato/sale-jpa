@@ -44,6 +44,10 @@ public class InvoiceService {
         return invoiceMapper.toInvoiceVO(invoiceRepository.findAll());
     }
 
+    public List<InvoiceVO> findInvoiceByValue() {
+        return invoiceMapper.toInvoiceVO(invoiceRepository.findInvoiceByValue(100L));
+    }
+
     public InvoiceVO getInvoiceByIndex(Long id) {
         InvoiceEntity invoiceEntity = invoiceFinderWithExcetion(id);
         return invoiceMapper.toInvoiceVO(invoiceEntity);

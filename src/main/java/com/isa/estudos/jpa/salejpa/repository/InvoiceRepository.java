@@ -1,9 +1,14 @@
 package com.isa.estudos.jpa.salejpa.repository;
 
 import com.isa.estudos.jpa.salejpa.entity.InvoiceEntity;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface InvoiceRepository extends CrudRepository<InvoiceEntity, Long> {
+    @Query(value ="select * from sale_jpa.invoice where value >:valor", nativeQuery = true)
+    List<InvoiceEntity> findInvoiceByValue(Long valor);
 }

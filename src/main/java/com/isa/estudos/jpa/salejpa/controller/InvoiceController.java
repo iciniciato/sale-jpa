@@ -26,6 +26,11 @@ public class InvoiceController {
         return ResponseEntity.ok(invoiceService.getInvoice());
     }
 
+    @GetMapping("/value")
+    public ResponseEntity getInvoicesValue() {
+        return ResponseEntity.ok(invoiceService.findInvoiceByValue());
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<InvoiceVO> getInvoice(@PathVariable Long id) {
         return ResponseEntity.ok(invoiceService.getInvoiceByIndex(id));
