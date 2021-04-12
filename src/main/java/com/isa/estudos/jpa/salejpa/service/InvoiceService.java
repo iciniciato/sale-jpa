@@ -13,6 +13,7 @@ import com.isa.estudos.jpa.salejpa.vo.LinkInvoiceVO;
 import com.isa.estudos.jpa.salejpa.vo.mapper.InvoiceItensMapper;
 import com.isa.estudos.jpa.salejpa.vo.mapper.InvoiceMapper;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-
+@Log4j2
 @AllArgsConstructor
 @Service
 public class InvoiceService {
@@ -41,15 +42,18 @@ public class InvoiceService {
     private final ProductRepository productRepository;
 
     public List<InvoiceVO> getInvoice() {
+        log.info("Sucess: Get invoices");
         return invoiceMapper.toInvoiceVO(invoiceRepository.findAll());
     }
 
     public List<InvoiceVO> findInvoiceByValue() {
+        log.info("Sucess: Get invoice by value");
         return invoiceMapper.toInvoiceVO(invoiceRepository.findInvoiceByValue(100L));
     }
 
     public InvoiceVO getInvoiceByIndex(Long id) {
         InvoiceEntity invoiceEntity = invoiceFinderWithExcetion(id);
+        log.info("Sucess: Get invoice by id: {}", id);
         return invoiceMapper.toInvoiceVO(invoiceEntity);
     }
 
@@ -76,6 +80,8 @@ public class InvoiceService {
         InvoiceVO invoiceVO = invoiceMapper.toInvoiceVO(invoiceRepository.save(invoiceEntity));
         invoiceVO.setItens(invoiceItensMapper.toInvoiceItensVO(invoiceItensEntities));
 
+        log.info("Sucess: Create invoice: {}", linkInvoiceVO);
+
         return invoiceVO;
     }
 
@@ -101,12 +107,15 @@ public class InvoiceService {
         changeInvoice.setClient(clientEntity);
         changeInvoice.setValue(invoiceValue);
         invoiceRepository.save(changeInvoice);
+        log.info("Sucess: Change invoice: {} {}", linkInvoiceVO, id);
+
     }
 
     public void deleteInvoiceByIndex(Long id) {
         invoiceItensRepository.deleteAll(invoiceItensRepository.findByInvoiceId(id));
         Optional<InvoiceEntity> invoiceEntity = invoiceRepository.findById(id);
         invoiceEntity.ifPresent(invoiceRepository::delete);
+        log.info("Sucess: Delete invoice: {}", id);
     }
 
     private InvoiceEntity invoiceFinderWithExcetion(Long id) {
