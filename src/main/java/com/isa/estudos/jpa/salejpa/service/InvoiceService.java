@@ -51,6 +51,12 @@ public class InvoiceService {
         return invoiceMapper.toInvoiceVO(invoiceRepository.findInvoiceByValue(100L));
     }
 
+    public List<InvoiceVO> getByClient(Long idClient) {
+        ClientEntity clientEntity = clientRepository.findById(idClient).get();
+        log.info("Sucess: Get invoice by client id: {}", idClient);
+        return invoiceMapper.toInvoiceVO(invoiceRepository.findByClient(clientEntity));
+    }
+
     public InvoiceVO getInvoiceByIndex(Long id) {
         InvoiceEntity invoiceEntity = invoiceFinderWithExcetion(id);
         log.info("Sucess: Get invoice by id: {}", id);
