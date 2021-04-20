@@ -13,5 +13,8 @@ public interface InvoiceRepository extends CrudRepository<InvoiceEntity, Long> {
     @Query(value ="select * from sale_jpa.invoice where value >:valor", nativeQuery = true)
     List<InvoiceEntity> findInvoiceByValue(Long valor);
 
+//    @Query(value = "select invoice from InvoiceEntity invoice inner join fetch invoice.client")
+//    List<InvoiceEntity> findInvoices();
+
     List<InvoiceEntity> findByClient(ClientEntity client);
 }
