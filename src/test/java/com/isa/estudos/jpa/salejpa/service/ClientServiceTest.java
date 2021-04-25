@@ -13,10 +13,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -58,11 +60,54 @@ public class ClientServiceTest {
     }
 
     @Test
+    public void whenGetClientIsOk(){
+        Mockito.when(clientRepository.findAll()).thenReturn(List.of());
+
+        clientService.getClients();
+
+        Mockito.verify(clientRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void whenGetClientByIdIsOk(){
+        long id = 100;
+
+        ClientEntity client = ClientEntity.builder()
+                .cpf(CPF)
+                .name(NAME)
+                .address(ADRESS)
+                .build();
+
+        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(client));
+
+        clientService.getClientByIndex(id);
+
+        Mockito.verify(clientRepository, times(1)).findById(any());
+    }
+
+    @Test
     public void whenChangingClientHasNotNullOrEmpty(){
         long id = 100;
 
         Mockito.when(clientRepository.findById(id)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(ResponseStatusException.class, () -> clientService.changeClient(clientVO, id));
+    }
+
+    @Test
+    public void whenDeleteClientIsOk(){
+        long id = 100;
+
+        ClientEntity client = ClientEntity.builder()
+                .cpf(CPF)
+                .name(NAME)
+                .address(ADRESS)
+                .build();
+
+        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(client));
+
+        clientService.deleteClientByIndex(id);
+
+        Mockito.verify(clientRepository, times(1)).delete(any());
     }
 }
