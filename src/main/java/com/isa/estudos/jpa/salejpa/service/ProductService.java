@@ -27,13 +27,13 @@ public class ProductService {
         return productMapper.toProductVO(productRepository.findAll());
     }
 
-    public ProductVO getClientByIndex(Long id) {
+    public ProductVO getProductByIndex(Long id) {
         ProductEntity productEntity = productFinderWithException(id);
         log.info("Sucess: Get product by id: {}", id);
         return productMapper.toProductVO(productEntity);
     }
 
-    public ProductVO createproduct(ProductVO productVO) {
+    public ProductVO createProduct(ProductVO productVO) {
         ProductEntity productEntity = productMapper.toProductEntity(productVO);
         log.info("Sucess: Create product: {}", productVO);
         return productMapper.toProductVO(productRepository.save(productEntity));

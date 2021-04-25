@@ -37,29 +37,6 @@ public class ClientServiceTest {
     private ClientVO clientVO;
 
     @Test
-    public void whenCreateClientIsOk(){
-        ClientVO clientVO =  ClientVO.builder()
-                .address(ADRESS)
-                .cpf(CPF)
-                .name(NAME)
-                .build();
-
-        ClientEntity client = ClientEntity.builder()
-                .cpf(CPF)
-                .name(NAME)
-                .address(ADRESS)
-                .build();
-
-        Mockito.when(clientRepository.save(any())).thenReturn(client);
-
-        ClientVO ret = clientService.createClient(clientVO);
-
-        Assertions.assertEquals(clientVO.getCpf(), ret.getCpf());
-        Assertions.assertEquals(clientVO.getName(), ret.getName());
-        Assertions.assertEquals(clientVO.getAddress(), ret.getAddress());
-    }
-
-    @Test
     public void whenGetClientIsOk(){
         Mockito.when(clientRepository.findAll()).thenReturn(List.of());
 
@@ -83,6 +60,29 @@ public class ClientServiceTest {
         clientService.getClientByIndex(id);
 
         Mockito.verify(clientRepository, times(1)).findById(any());
+    }
+
+    @Test
+    public void whenCreateClientIsOk(){
+        ClientVO clientVO =  ClientVO.builder()
+                .address(ADRESS)
+                .cpf(CPF)
+                .name(NAME)
+                .build();
+
+        ClientEntity client = ClientEntity.builder()
+                .cpf(CPF)
+                .name(NAME)
+                .address(ADRESS)
+                .build();
+
+        Mockito.when(clientRepository.save(any())).thenReturn(client);
+
+        ClientVO ret = clientService.createClient(clientVO);
+
+        Assertions.assertEquals(clientVO.getCpf(), ret.getCpf());
+        Assertions.assertEquals(clientVO.getName(), ret.getName());
+        Assertions.assertEquals(clientVO.getAddress(), ret.getAddress());
     }
 
     @Test

@@ -27,13 +27,13 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductVO> getProduct(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.getClientByIndex(id));
+        return ResponseEntity.ok(productService.getProductByIndex(id));
     }
 
     @PostMapping
     public ResponseEntity postProduct(@RequestBody ProductVO productVO) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(productService.createproduct(productVO));
+                .body(productService.createProduct(productVO));
     }
 
     @PutMapping("/{id}")
