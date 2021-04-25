@@ -1,6 +1,7 @@
 package com.isa.estudos.jpa.salejpa.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDate;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

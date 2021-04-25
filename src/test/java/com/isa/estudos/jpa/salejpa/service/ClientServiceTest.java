@@ -1,5 +1,6 @@
 package com.isa.estudos.jpa.salejpa.service;
 
+import com.isa.estudos.jpa.salejpa.entity.ClientEntity;
 import com.isa.estudos.jpa.salejpa.repository.ClientRepository;
 import com.isa.estudos.jpa.salejpa.vo.ClientVO;
 import org.junit.jupiter.api.Assertions;
@@ -14,6 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
 import java.util.Random;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -38,6 +41,15 @@ public class ClientServiceTest {
                 .cpf(CPF)
                 .name(NAME)
                 .build();
+
+        ClientEntity client = ClientEntity.builder()
+                .cpf(CPF)
+                .name(NAME)
+                .address(ADRESS)
+                .build();
+
+        Mockito.when(clientRepository.save(any())).thenReturn(client);
+
         ClientVO ret = clientService.createClient(clientVO);
 
         Assertions.assertEquals(clientVO.getCpf(), ret.getCpf());
