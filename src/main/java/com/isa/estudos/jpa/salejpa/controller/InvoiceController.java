@@ -22,8 +22,8 @@ public class InvoiceController {
     private final InvoiceService invoiceService;
 
     @GetMapping
-    public ResponseEntity getInvoice() {
-        return ResponseEntity.ok(invoiceService.getInvoice());
+    public ResponseEntity getInvoices() {
+        return ResponseEntity.ok(invoiceService.getInvoices());
     }
 
     @GetMapping("/value")

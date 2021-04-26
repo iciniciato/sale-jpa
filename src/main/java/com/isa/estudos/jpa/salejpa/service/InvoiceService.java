@@ -41,7 +41,7 @@ public class InvoiceService {
 
     private final ProductRepository productRepository;
 
-    public List<InvoiceVO> getInvoice() {
+    public List<InvoiceVO> getInvoices() {
         log.info("Sucess: Get invoices");
         return invoiceMapper.toInvoiceVO(invoiceRepository.findAll());
     }

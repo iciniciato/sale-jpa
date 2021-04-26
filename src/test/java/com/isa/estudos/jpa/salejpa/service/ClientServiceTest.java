@@ -37,7 +37,7 @@ public class ClientServiceTest {
     private ClientVO clientVO;
 
     @Test
-    public void whenGetClientIsOk(){
+    public void whenGetClientsIsOk(){
         Mockito.when(clientRepository.findAll()).thenReturn(List.of());
 
         clientService.getClients();

@@ -6,7 +6,6 @@ import com.isa.estudos.jpa.salejpa.vo.ProductVO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,7 +37,7 @@ public class ProductServiceTest {
     private ProductVO productVO;
 
     @Test
-    public void whenGetProductIsOk(){
+    public void whenGetProductsIsOk(){
         Mockito.when(productRepository.findAll()).thenReturn(List.of());
 
         productService.getProducts();
