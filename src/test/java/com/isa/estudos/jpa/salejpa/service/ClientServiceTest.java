@@ -49,13 +49,13 @@ public class ClientServiceTest {
     public void whenGetClientByIdIsOk(){
         long id = 100;
 
-        ClientEntity client = ClientEntity.builder()
+        ClientEntity clientEntity = ClientEntity.builder()
                 .cpf(CPF)
                 .name(NAME)
                 .address(ADRESS)
                 .build();
 
-        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(client));
+        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(clientEntity));
 
         clientService.getClientByIndex(id);
 
@@ -70,13 +70,13 @@ public class ClientServiceTest {
                 .name(NAME)
                 .build();
 
-        ClientEntity client = ClientEntity.builder()
+        ClientEntity clientEntity = ClientEntity.builder()
                 .cpf(CPF)
                 .name(NAME)
                 .address(ADRESS)
                 .build();
 
-        Mockito.when(clientRepository.save(any())).thenReturn(client);
+        Mockito.when(clientRepository.save(any())).thenReturn(clientEntity);
 
         ClientVO ret = clientService.createClient(clientVO);
 
@@ -98,13 +98,13 @@ public class ClientServiceTest {
     public void whenDeleteClientIsOk(){
         long id = 100;
 
-        ClientEntity client = ClientEntity.builder()
+        ClientEntity clientEntity = ClientEntity.builder()
                 .cpf(CPF)
                 .name(NAME)
                 .address(ADRESS)
                 .build();
 
-        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(client));
+        Mockito.when(clientRepository.findById(id)).thenReturn(Optional.of(clientEntity));
 
         clientService.deleteClientByIndex(id);
 
