@@ -46,7 +46,7 @@ public class InvoiceService {
         return invoiceMapper.toInvoiceVO(invoiceRepository.findAll());
     }
 
-    public List<InvoiceVO> findInvoiceByValue() {
+    public List<InvoiceVO> getInvoiceByValue() {
         log.info("Sucess: Get invoice by value");
         return invoiceMapper.toInvoiceVO(invoiceRepository.findInvoiceByValue(100L));
     }

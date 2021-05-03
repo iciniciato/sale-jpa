@@ -28,7 +28,7 @@ public class InvoiceController {
 
     @GetMapping("/value")
     public ResponseEntity getInvoicesValue() {
-        return ResponseEntity.ok(invoiceService.findInvoiceByValue());
+        return ResponseEntity.ok(invoiceService.getInvoiceByValue());
     }
 
     @GetMapping ("/client/{idClient}")
