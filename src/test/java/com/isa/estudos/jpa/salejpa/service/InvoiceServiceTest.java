@@ -8,8 +8,6 @@ import com.isa.estudos.jpa.salejpa.repository.ClientRepository;
 import com.isa.estudos.jpa.salejpa.repository.InvoiceItensRepository;
 import com.isa.estudos.jpa.salejpa.repository.InvoiceRepository;
 import com.isa.estudos.jpa.salejpa.repository.ProductRepository;
-import com.isa.estudos.jpa.salejpa.vo.ClientVO;
-import com.isa.estudos.jpa.salejpa.vo.InvoiceItensVO;
 import com.isa.estudos.jpa.salejpa.vo.InvoiceVO;
 import com.isa.estudos.jpa.salejpa.vo.LinkInvoiceVO;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
